@@ -52,7 +52,7 @@ sub _hdlr_analyticjson {
 	   $today = format_ts( '%Y-%m-%d', $today, $blog );
 	my $week_ago = start_end_day( epoch2ts( $blog, $now - ( 60 * 60 * 24 * 7 ) ) );
 	   $week_ago = format_ts( '%Y-%m-%d', $week_ago, $blog );
-	my $mod_ago = start_end_day( epoch2ts( $blog, $now - ( 60 * 60 * 24 * $span0 ) ) );
+	my $mod_ago = start_end_day( epoch2ts( $blog, $now - ( 60 * 60 * 24 * $span ) ) );
 	   $mod_ago = format_ts( '%Y-%m-%d', $mod_ago, $blog );
     my $data;   
 	if ($span) {
