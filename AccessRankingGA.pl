@@ -61,7 +61,7 @@ sub _hdlr_analyticjson {
 		$data = &get_data($token, $profileid, $week_ago, $today, $maxresult);
 	}
 	my $parser = XML::Simple->new(Forcearray => 1);
-	my $xml = $parser->XMLin($week_data);
+	my $xml = $parser->XMLin($data);
 	my $json = to_json($xml->{entry});
 
 	#my $enc = MT::I18N::guess_encoding($json);  ## deal with your situation that character encoding
