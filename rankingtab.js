@@ -1,4 +1,4 @@
-//JSONAccessRanking Plugin jQuery rankingtab plugin
+//AccessRankingGA Plugin jQuery rankingtab plugin
 
 (function($){
 
