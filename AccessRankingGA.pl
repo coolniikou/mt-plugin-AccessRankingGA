@@ -54,18 +54,19 @@ sub _hdlr_analyticjson {
 	   $week_ago = format_ts( '%Y-%m-%d', $week_ago, $blog );
 	my $mod_ago = start_end_day( epoch2ts( $blog, $now - ( 60 * 60 * 24 * $span ) ) );
 	   $mod_ago = format_ts( '%Y-%m-%d', $mod_ago, $blog );
-    my $data;   
+	my $data;   
 	if ($span) {
 		$data = &get_data($token, $profileid, $mod_ago, $today, $maxresult);
 	} else {
 		$data = &get_data($token, $profileid, $week_ago, $today, $maxresult);
 	}
-       #$week_data = decode('utf8',$week_data);
 	my $parser = XML::Simple->new(Forcearray => 1);
 	my $xml = $parser->XMLin($week_data);
 	my $json = to_json($xml->{entry});
+
 	#my $enc = MT::I18N::guess_encoding($json);  ## deal with your situation that character encoding
 	#my $json = MT::I18N::encode_text($json, $enc, 'utf-8');
+
 	return $json;
 }
 
@@ -123,4 +124,3 @@ sub get_data{
 }
 
 1;
-
