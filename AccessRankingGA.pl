@@ -48,12 +48,12 @@ sub _hdlr_analyticjson {
 	my $token = &get_token($user, $pass);
 	
 	my $now = time;
-	my $today = start_end_day( epoch2ts( $blog, $now ) );
-	   $today = format_ts( '%Y-%m-%d', $today, $blog );
-	my $week_ago = start_end_day( epoch2ts( $blog, $now - ( 60 * 60 * 24 * 7 ) ) );
-	   $week_ago = format_ts( '%Y-%m-%d', $week_ago, $blog );
-	my $mod_ago = start_end_day( epoch2ts( $blog, $now - ( 60 * 60 * 24 * $span ) ) );
-	   $mod_ago = format_ts( '%Y-%m-%d', $mod_ago, $blog );
+	my $today = start_end_day(epoch2ts($blog, $now));
+	   $today = format_ts('%Y-%m-%d', $today, $blog);
+	my $week_ago = start_end_day(epoch2ts($blog, $now - (60 * 60 * 24 * 7)));
+	   $week_ago = format_ts('%Y-%m-%d', $week_ago, $blog);
+	my $mod_ago = start_end_day(epoch2ts($blog, $now - (60 * 60 * 24 * $span)));
+	   $mod_ago = format_ts('%Y-%m-%d', $mod_ago, $blog);
 	my $data;   
 	if ($span) {
 		$data = &get_data($token, $profileid, $mod_ago, $today, $maxresult);
@@ -76,7 +76,7 @@ sub get_token{
 	my $ua = MT->new_ua({ agent => join("/", $plugin->name, $plugin->version) });
 	my $token_url = 'https://www.google.com/accounts/ClientLogin';
 	my $tk_con = {
-      	accountType => 'GOOGLE',
+		accountType => 'GOOGLE',
 		Email => $user,
 		Passwd => $pass,
 		service => 'analytics',
@@ -84,7 +84,7 @@ sub get_token{
 	};
 	my $res = $ua->post($token_url, Content => $tk_con);
 	if ($res->is_success) {
-		if ( $res->content =~ /Auth\=(.+)/i ){
+		if ( $res->content =~ /Auth\=(.+)/i ) {
 			return $1;
  		}
 	} else {
