@@ -1,0 +1,17 @@
+id: "AccessRankingGA"
+key: "AccessRankingGA"
+name: "AccessRankingGA"
+version: 1.0
+
+template_sets:
+  AccessRanking-list:
+		base_path: templates
+		version: 1.0
+		templates:
+		  module:
+			m_rankinglist:
+			  label: "AccessRanking List Widget"
+			m_header_javascript:
+			  label: "include jQuery"
+			m_footer_javascript:
+			  label: "rankingtabJS"
