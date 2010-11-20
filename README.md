@@ -1,4 +1,4 @@
- About the AccessRankingGA plugin for Movable Type and Melody
+#About the AccessRankingGA plugin for Movable Type and Melody
 AccessRankingGA is a plugin for Movable Type and Melody provides accessranking data from Google Analytics(GA) Data.  
 
 AccessRankingGA pluginは、Google Analyticsレポート情報からユニークビジター数データを取得し、JSONファイルを出力生成します。 
@@ -7,8 +7,8 @@ jQueryオリジナルプラグインを使い、JSONデータをコンテンツ�
 
 ## Documentation
 AccessRankingGAインストール・設定までの流れ   
- 1.プラグインフォルダにAccessRankingGAフォルダを追加。 
- 2.プラグインページにて必要情報を設定。（ログインアカウント名、パスワード、レポートID、最大表示件数）  
+ 1.プラグインフォルダにAccessRankingGAフォルダを追加。  
+ 2.プラグインページにて必要情報を設定。（ログインアカウント名、パスワード、レポートID、最大表示件数）   
  3.新規インデックステンプレート作成（jsonファイル)   
  4.ヘッダー部分にjQueryコードを追加。   
  5.フッター部分に外部スクリプト（オリジナルプラグイン）読み込みコードを追加。   

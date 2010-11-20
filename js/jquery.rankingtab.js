@@ -5,9 +5,9 @@
 
 			return this.each(function() {
 				var $rklist = $(this);
-                $('ul.rktab li a', $rklist).bind('click', function() {
+				$('ul.rktab li a', $rklist).bind('click', function() {
 					onclick.call(this, $rklist);
-                    return false;
+					return false;
 				}).filter(':first').click();
 			});
 		}; 
@@ -19,7 +19,7 @@
 		}
 
 		function get_data(tag, $rklist) {
-			var url = options.baseurl+tag+'.json';
+			var url = opts.baseurl+tag+'.json';
 			$.getJSON(url, function(a) {
 				show_data(a, $rklist);
 			});
@@ -30,7 +30,7 @@
 			var c = 1;
 			for (i=0; i<a.length; i++) {
 				var title = a[i]['dxp:dimension']['ga:pageTitle'].value;
-					title = title.substr(0,options.trunc);
+					title = title.substr(0,opts.trunc);
 					title += '...';
 				var url = a[i]['dxp:dimension']['ga:pagePath'].value;
 				list += '<li class="rk_item">'+c+' : '+'<a href="'+url+'">'+title+'</a></li>';
@@ -42,6 +42,7 @@
 		}
 
         $.fn.rankingtab.defaults = {
+			baseurl: "<$MTBlgoURL$>",
 			trunc: 40
         };
 
