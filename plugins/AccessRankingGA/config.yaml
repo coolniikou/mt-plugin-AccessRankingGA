@@ -1,0 +1,40 @@
+id: 'AccessRankingGA'
+key: 'accessrankingga'
+name: 'AccessRankingGA'
+version: 1.0
+description: '<MT_TRANS phrase="as_DESCRIPTION">'
+doc_link: 'http://friendfeed.com/coolniikou/27ecf1ad/coolniikou-mt-plugin-accessrankingga-at'
+author_name: '<MT_TRANS phrase="as_AUTHOR_NAME">'
+author_link: 'http://friendfeed.com/coolniikou/'
+l10n_class: 'AccessRankingGA::L10N'
+blog_config_template: 'config.tmpl'
+settings:
+	GA_username:
+		default: undef
+		scope: blog
+	GA_password:
+		default: undef
+		scope: blog
+	GA_profile_id:
+		default: undef
+		scope: blog
+	GA_maxresult:
+		default: undef
+		scope: blog
+	GA_exclude_path:
+		default: undef
+		scope: blog
+
+tags:
+	funcgion:
+		AccessRankingGA: $AccessRankingGA::AccessRankingGA::Plugin::_hdlr_analytic_tags
+
+default_templates:
+	base_path: templates
+	global:module:
+		m_html_header:
+		label: 'AccessRankigGA include JS and CSS'
+		m_html_footer:
+		label: 'AccessRankingGA include jquery.rankingtabJS'
+		m_ranking_widget:
+		label: 'AccessRankingGA Sample Widget'
