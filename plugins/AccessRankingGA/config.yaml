@@ -6,35 +6,38 @@ description: '<MT_TRANS phrase="as_DESCRIPTION">'
 doc_link: 'http://friendfeed.com/coolniikou/27ecf1ad/coolniikou-mt-plugin-accessrankingga-at'
 author_name: '<MT_TRANS phrase="as_AUTHOR_NAME">'
 author_link: 'http://friendfeed.com/coolniikou/'
+schema_version: 0.8
 l10n_class: 'AccessRankingGA::L10N'
 blog_config_template: 'config.tmpl'
 settings:
 	GA_username:
-		default: undef
+		default: ""  
 		scope: blog
 	GA_password:
-		default: undef
+		default: ""
 		scope: blog
 	GA_profile_id:
-		default: undef
+		default: ""
 		scope: blog
 	GA_maxresult:
-		default: undef
+		default: ""
 		scope: blog
 	GA_exclude_path:
-		default: undef
+		default: "/"
 		scope: blog
 
 tags:
-	funcgion:
+	function:
 		AccessRankingGA: $AccessRankingGA::AccessRankingGA::Plugin::_hdlr_analytic_tags
 
 default_templates:
 	base_path: templates
 	global:module:
 		m_html_header:
-		label: 'AccessRankigGA include JS and CSS'
+			label: "Header ARGA"
+	global:module:
 		m_html_footer:
-		label: 'AccessRankingGA include jquery.rankingtabJS'
+			label: "Footer ARGA"
+	global:module:
 		m_ranking_widget:
-		label: 'AccessRankingGA Sample Widget'
+			label: "AccessRankingGA Widget"

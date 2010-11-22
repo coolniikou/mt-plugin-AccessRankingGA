@@ -1,0 +1,43 @@
+<p>
+<__trans phrase="as_SET_DES">
+</p>
+<h4><__trans phrase="as_SET_TITLE"></h4>
+<ul>
+	<li><mtapp:setting
+	    id="GA_username"
+	    label="<__trans phrase="as_GA_Username">">
+	    <input type="text" name="GA_username" id="GA_username" value="<mt:var name="GA_username" escape="html">" />
+	</mtapp:setting></li>
+	<li><mtapp:setting
+	    id="GA_password"
+	    label="<__trans phrase="as_GA_Password">">
+	    <input type="password" name="GA_password" id="GA_password" value="<mt:var name="GA_password" escape="html">" />
+	</mtapp:setting></li>
+	<li><mtapp:setting
+	    id="GA_profile_id"
+	    label="<__trans phrase="as_GA_ProfileID">">
+	    <input type="text" name="GA_profile_id" id="GA_profile_id" value="<mt:var name="GA_profile_id" escape="html">" />
+	</mtapp:setting></li>
+</ul>
+<h4><__trans phrase="as_DATA_SET_DETAIL"></h4>
+<ul>
+	<li><mtapp:setting
+	    id="GA_maxresult"
+	    label="<__trans phrase="as_GA_Maxresult">">
+	    <input type="text" name="GA_maxresult" id="GA_maxresult" value="<mt:var name="GA_maxresult" escape="html">" />
+	</mtapp:setting></li>
+	<li><mtapp:setting
+	    id="GA_exclude_TopPage"
+	    label="<__trans phrase="as_GA_ExcludeTOP">"
+			show_hint="1"
+			hint="<__trans phrase="as_GA_ExcludeTOP_Hint">">
+	    <input type="checkbox" name="GA_exclude_top" id="GA_exclude_top" value="1" <mt:if name="GA_exclude_top"> checked="checked"</mt:if> />
+	</mtapp:setting></li>
+	<li><mtapp:setting
+	  id="GA_exclude_path"
+	  label="<__trans phrase="as_GA_Exclude_Path">" 
+	  show_hint="1"
+	  hint="<__trans phrase="as_GA_Exclude_Path_Hintinput specific Page Path that you want to exclude. ex: input (slash: /) in exclude Top-Page-Path case">">
+	<textarea id="exclude_path" name="GA_exclude_path" rows="4" style="width:100%"><mt:var name="GA_exclude_path" escape="html"></textarea>
+	</mtapp:setting></li>
+</ul>

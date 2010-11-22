@@ -1,50 +1,38 @@
-﻿package MT::Plugin::AccessRankingGA;
+﻿package AccessRankingGA::Plugin;
+
 use strict;
+use warnings;
 use base qw(MT::Plugin);
 use MT;
-use MT::Util qw( start_end_day epoch2ts format_ts );
+use MT::Util qw( start_end_day epoch2ts format_ts trim );
 use XML::Simple;
 use JSON;
+use Data::Dumper;
+sub doLog {
+    my ($msg) = @_; 
+    return unless defined($msg);
 
+    use MT::Log;
+    my $log = MT::Log->new;
+    $log->message($msg) ;
+    $log->save or die $log->errstr;
+}
 
-our $VERSION = '1.0';
-
-my $plugin; $plugin = new MT::Plugin::AccessRankingGA({
-    id => 'AccessRankingGA',
-    key => 'accessrankingga',
-    name => 'AccessRankingGA',
-    version => $VERSION,
-    description => '<MT_TRANS phrase="as_DESCRIPTION">',
-    doc_link => 'http://friendfeed.com/coolniikou/27ecf1ad/coolniikou-mt-plugin-accessrankingga-at',
-    author_name => '<MT_TRANS phrase="as_AUTHOR_NAME">',
-    author_link => 'http://friendfeed.com/coolniikou/',
-    l10n_class => 'AccessRankingGA::L10N',
-    blog_config_template => 'analytics_config.tmpl',
-    settings => new MT::PluginSettings([
-        [ 'analytics_username', { Default => undef, Scope => 'blog' } ],
-        [ 'analytics_password', { Default => undef, Scope => 'blog' } ],
-        [ 'analytics_profile_id', { Default => undef, Scope => 'blog' } ],
-        [ 'analytics_maxresult', { Default => undef, Scope => 'blog' } ],
-    ]),
-    registry => {
-        tags => {
-            function => {
-                AccessRankingGA => \&_hdlr_analyticjson,
-            },
-        },
-    },
-});
-MT->add_plugin($plugin);
-
-sub _hdlr_analyticjson {
+sub _hdlr_analytic_tags {
 	my ($ctx, $args) = @_;
-	my $blog =  $ctx->stash('blog');
+	my $plugin = MT->component('AccessRankingGA');
+	my $blog =  $ctx->stash('blog') or return '';
 	my $blog_id =  $ctx->stash('blog_id');
 	my $span = $args->{span};
-	my $user = $plugin->get_config_value('analytics_username', "blog:" . $blog_id);
-	my $pass = $plugin->get_config_value('analytics_password', "blog:" . $blog_id);
-	my $profileid = $plugin->get_config_value('analytics_profile_id', "blog:" . $blog_id);
-	my $maxresult = $plugin->get_config_value('analytics_maxresult', "blog:" . $blog_id);
+	my $user = $plugin->get_config_value('GA_username', "blog:" . $blog_id);
+	my $pass = $plugin->get_config_value('GA_password', "blog:" . $blog_id);
+	my $profileid = $plugin->get_config_value('GA_profile_id', "blog:" . $blog_id);
+	my $maxresult = $plugin->get_config_value('GA_maxresult', "blog:" . $blog_id);
+	my $exclude = trim($plugin->get_config_value('GA_exclude_path', "blog:" . $blog_id));
+	my @excludes = ($exclude =~ /(\S+)/g);
+	foreach my $exc (@excludes) {
+		doLog($exc);
+	}
 	my $token = &get_token($user, $pass);
 	
 	my $now = time;
@@ -72,6 +60,7 @@ sub _hdlr_analyticjson {
 
 sub get_token{
 	my ($user, $pass) = @_;
+	my $plugin = MT->component('AccessRankingGA');
 	my $token;
 	my $ua = MT->new_ua({ agent => join("/", $plugin->name, $plugin->version) });
 	my $token_url = 'https://www.google.com/accounts/ClientLogin';
@@ -99,13 +88,14 @@ sub get_token{
 
 sub get_data{
 	my ($token, $profileid, $start, $end, $maxresult) = @_;
+	my $plugin = MT->component('AccessRankingGA');
 	my $ua = MT->new_ua({ agent => join("/", $plugin->name, $plugin->version) });
 	my $url = "https://www.google.com/analytics/feeds/data?"
 		."ids=ga%3A$profileid&"
 		."dimensions=ga%3ApagePath%2Cga%3ApageTitle&"
 		."metrics=ga%3AuniquePageviews&"
 		."sort=-ga%3AuniquePageviews&"
-		#."filters=ga%3APagePath!%3D%2F&" ## add filter option, if would like to exclude TOP Page's data 
+		."filters=ga%3ApagePath%3D~/weblog/photoshop/&" #;gd%3ApagePath!%3D%2Fweblog%2Fcss%2F&" ## add filter option, if would like to exclude TOP Page's data 
 		."start-date=$start&"
 		."end-date=$end&"
 		."max-results=$maxresult";
