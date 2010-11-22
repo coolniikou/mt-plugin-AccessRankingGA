@@ -1,4 +1,4 @@
-﻿package MT::Plugin::AccessRankingGA;
+package MT::Plugin::AccessRankingGA;
 use strict;
 use base qw(MT::Plugin);
 use MT;
