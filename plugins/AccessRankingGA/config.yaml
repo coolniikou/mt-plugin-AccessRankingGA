@@ -6,7 +6,7 @@ description: '<MT_TRANS phrase="as_DESCRIPTION">'
 doc_link: 'http://friendfeed.com/coolniikou/27ecf1ad/coolniikou-mt-plugin-accessrankingga-at'
 author_name: '<MT_TRANS phrase="as_AUTHOR_NAME">'
 author_link: 'http://friendfeed.com/coolniikou/'
-schema_version: 0.8
+schema_version: 1.0
 l10n_class: 'AccessRankingGA::L10N'
 blog_config_template: 'config.tmpl'
 settings:
@@ -20,10 +20,10 @@ settings:
 		default: ""
 		scope: blog
 	GA_maxresult:
-		default: ""
+		default: 5
 		scope: blog
 	GA_exclude_path:
-		default: "/"
+		default: ""
 		scope: blog
 
 tags:
