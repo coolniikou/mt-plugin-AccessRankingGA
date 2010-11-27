@@ -22,6 +22,9 @@ settings:
 	GA_maxresult:
 		default: 5
 		scope: blog
+	GA_exclude_top:
+		default: ""
+		scope: blog
 	GA_exclude_path:
 		default: ""
 		scope: blog
