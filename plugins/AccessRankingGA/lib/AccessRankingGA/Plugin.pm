@@ -28,30 +28,23 @@ sub _hdlr_analytic_tags {
     my $blog_id = $ctx->stash('blog_id');
     my $plugin  = plugin();
     my $span    = $args->{span};
-    my $conf    = &get_conf($blog_id);
-    my $date    = &get_date( $blog, $span );
-    my $token   = &get_token($conf);
-
-    my $data = &get_data( $token, $conf, $date );
-    my $parser = XML::Simple->new( Forcearray => 1 );
-    my $xml    = $parser->XMLin($data);
-    my $json   = to_json( $xml->{entry} );
-
-#output character encoding
-#my $enc = MT::I18N::guess_encoding($json);  ## deal with your situation that character encoding
-#my $json = MT::I18N::encode_text($json, $enc, 'utf-8');
-
-    return $json;
-}
-
-sub get_conf {
-    my $blog_id = shift;
-    my $plugin  = plugin();
 
     #	my @ex_paths = ($ex_path =~ /(\S+)/g);
     #	foreach my $exc (@ex_paths) {
     #		doLog($exc);
     #	}
+
+    my $now = time;
+    my $today = start_end_day( epoch2ts( $blog, $now ) );
+    my $ago;
+    if ($span) {
+        $ago =
+          start_end_day( epoch2ts( $blog, $now - ( 60 * 60 * 24 * $span ) ) );
+    }
+    else {
+        $ago = start_end_day( epoch2ts( $blog, $now - ( 60 * 60 * 24 * 7 ) ) );
+    }
+
     my $conf = {
         user => $plugin->get_config_value( 'GA_username', 'blog:' . $blog_id ),
         pass => $plugin->get_config_value( 'GA_password', 'blog:' . $blog_id ),
@@ -64,27 +57,21 @@ sub get_conf {
         ex_path => trim(
             $plugin->get_config_value( 'GA_exclude_path', 'blog:' . $blog_id )
         ),
-    };
-    return $conf;
-}
-
-sub get_date {
-    my ( $blog, $span ) = @_;
-    my $now = time;
-    my $today = start_end_day( epoch2ts( $blog, $now ) );
-    my $ago;
-    if ($span) {
-        $ago =
-          start_end_day( epoch2ts( $blog, $now - ( 60 * 60 * 24 * $span ) ) );
-    }
-    else {
-        $ago = start_end_day( epoch2ts( $blog, $now - ( 60 * 60 * 24 * 7 ) ) );
-    }
-    my $date = {
         start => format_ts( '%Y-%m-%d', $ago,   $blog ),
         end   => format_ts( '%Y-%m-%d', $today, $blog ),
     };
-    return $date;
+
+	my $token = &get_token($conf);
+    my $data = &get_data( $token, $conf);
+    my $parser = XML::Simple->new( Forcearray => 1 );
+    my $xml    = $parser->XMLin($data);
+    my $json   = to_json( $xml->{entry} );
+
+#output character encoding
+#my $enc = MT::I18N::guess_encoding($json);  ## deal with your situation that character encoding
+#my $json = MT::I18N::encode_text($json, $enc, 'utf-8');
+
+	return $json;
 }
 
 sub get_token {
@@ -121,7 +108,7 @@ sub get_token {
 }
 
 sub get_data {
-    my ( $token, $conf, $date ) = @_;
+    my ( $token, $conf ) = @_;
     my $plugin = plugin();
     my $ua =
       MT->new_ua( { agent => join( "/", $plugin->name, $plugin->version ) } );
@@ -133,13 +120,15 @@ sub get_data {
       . "metrics=ga%3AuniquePageviews&"
       . "sort=-ga%3AuniquePageviews&"
       . "start-date="
-      . $date->{start} . "&"
+      . $conf->{start} . "&"
       . "end-date="
-      . $date->{end} . "&"
+      . $conf->{end} . "&"
       . "max-results="
       . $conf->{maxresult};
 
-#$url .= "&filters=ga%3ApagePath!%3D%2F" if ($ex_top);  #;gd%3ApagePath!~css&" ## add filter option, if would like to exclude TOP Page's data
+#$url .= "&filters=ga%3ApagePath!%3D%2F" if ($ex_top);
+#;gd%3ApagePath!~css&" ## add filter option, if would like to exclude TOP Page's data
+
     my @headers = ( Authorization => "GoogleLogin Auth=$token" );
     my $res = $ua->get( $url, @headers );
     if ( $res->is_success ) {
