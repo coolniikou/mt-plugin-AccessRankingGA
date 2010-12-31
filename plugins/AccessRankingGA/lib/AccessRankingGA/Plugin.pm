@@ -5,6 +5,7 @@ use MT;
 use MT::Util qw( start_end_day epoch2ts format_ts trim );
 use XML::Simple;
 use JSON;
+use File::Basename qw( basename );
 use Data::Dumper;
 
 ## DEBUC CODE
@@ -21,18 +22,13 @@ sub plugin {
     return MT->component('AccessRankingGA');
 }
 
-## function tag
 sub _hdlr_analytic_tags {
     my ( $ctx, $args ) = @_;
-    my $blog    = $ctx->stash('blog');
-    my $blog_id = $ctx->stash('blog_id');
-    my $plugin  = plugin();
-    my $span    = $args->{span};
-
-    #	my @ex_paths = ($ex_path =~ /(\S+)/g);
-    #	foreach my $exc (@ex_paths) {
-    #		doLog($exc);
-    #	}
+    my $blog     = $ctx->stash('blog');
+    my $blog_id  = $ctx->stash('blog_id');
+    my $site_url = $blog->site_url;
+    my $plugin   = plugin();
+    my $span     = $args->{span};
 
     my $now = time;
     my $today = start_end_day( epoch2ts( $blog, $now ) );
@@ -61,17 +57,13 @@ sub _hdlr_analytic_tags {
         end   => format_ts( '%Y-%m-%d', $today, $blog ),
     };
 
-	my $token = &get_token($conf);
-    my $data = &get_data( $token, $conf);
+    my $token  = &get_token($conf);
+    my $data   = &get_data( $token, $conf );
     my $parser = XML::Simple->new( Forcearray => 1 );
     my $xml    = $parser->XMLin($data);
-    my $json   = to_json( $xml->{entry} );
 
-#output character encoding
-#my $enc = MT::I18N::guess_encoding($json);  ## deal with your situation that character encoding
-#my $json = MT::I18N::encode_text($json, $enc, 'utf-8');
-
-	return $json;
+    my $json = to_json( $xml->{entry} );
+    return $json;
 }
 
 sub get_token {
@@ -90,6 +82,7 @@ sub get_token {
     };
     my $res = $ua->post( $token_url, Content => $tk_con );
     if ( $res->is_success ) {
+
         if ( $res->content =~ /Auth\=(.+)/i ) {
             return $1;
         }
@@ -125,9 +118,15 @@ sub get_data {
       . $conf->{end} . "&"
       . "max-results="
       . $conf->{maxresult};
-
-#$url .= "&filters=ga%3ApagePath!%3D%2F" if ($ex_top);
-#;gd%3ApagePath!~css&" ## add filter option, if would like to exclude TOP Page's data
+    if ( $conf->{ex_top} || $conf->{ex_path} && $conf->{ex_path} ne '' ) {
+        $url .= "&filters=";
+        $url .= "ga%3ApagePath!%3D%2F;ga%3ApagePath!%3D%2Findex.html;"
+          if ( defined( $conf->{ex_top} ) );
+        my @ex_paths = ( $conf->{ex_path} =~ /(\S+)/g );
+        foreach my $exc (@ex_paths) {
+            $url .= "ga%3ApagePath!~" . $exc . ";";
+        }
+    }
 
     my @headers = ( Authorization => "GoogleLogin Auth=$token" );
     my $res = $ua->get( $url, @headers );
