@@ -1,7 +1,7 @@
 id: 'AccessRankingGA'
 key: 'accessrankingga'
 name: 'AccessRankingGA'
-version: 1.0
+version: 0.4 
 description: '<MT_TRANS phrase="as_DESCRIPTION">'
 doc_link: 'http://friendfeed.com/coolniikou/27ecf1ad/coolniikou-mt-plugin-accessrankingga-at'
 author_name: '<MT_TRANS phrase="as_AUTHOR_NAME">'
