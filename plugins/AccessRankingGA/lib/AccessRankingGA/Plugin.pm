@@ -16,8 +16,8 @@ sub doLog {
     use MT::Log;
     my $log = MT::Log->new;
     $log->message($msg);
-	$log->level(MT::Log::DEBUG());
-	$log->class($class) if $class;
+    $log->level( MT::Log::DEBUG() );
+    $log->class($class) if $class;
     $log->save or die $log->errstr;
 }
 
@@ -64,12 +64,14 @@ sub _hdlr_analytic_tags {
     my $data   = &get_data( $token, $conf );
     my $parser = XML::Simple->new( Forcearray => 1 );
     my $xml    = $parser->XMLin($data);
-	if( MT->VERSION > 4) {
-		foreach my $xentry ( @{$xml->{entry}} ) {
-			$entry->{title}[0] = decode('utf-8', $entry->{title}[0]);
-			$entry->{'dxp:dimension'}->{'ga:pageTitle'}->{value} = decode('utf-8', $entry->{'dxp:dimension'}->{'ga:pageTitle'}->{value});
-		}
-	}
+    if ( MT->VERSION > 4 ) {
+        foreach my $xentry ( @{ $xml->{entry} } ) {
+            $entry->{title}[0] = decode( 'utf-8', $entry->{title}[0] );
+            $entry->{'dxp:dimension'}->{'ga:pageTitle'}->{value} =
+              decode( 'utf-8',
+                $entry->{'dxp:dimension'}->{'ga:pageTitle'}->{value} );
+        }
+    }
 
     my $json = to_json( $xml->{entry} );
     return $json;
