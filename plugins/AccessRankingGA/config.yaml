@@ -9,7 +9,7 @@ author_link: 'http://friendfeed.com/coolniikou/'
 l10n_class: 'AccessRankingGA::L10N'
 blog_config_template: 'config.tmpl'
 settings:
-   	GA_username:
+    GA_username:
         default: ""  
         scope: blog
     GA_password:
