@@ -9,37 +9,37 @@ author_link: 'http://friendfeed.com/coolniikou/'
 l10n_class: 'AccessRankingGA::L10N'
 blog_config_template: 'config.tmpl'
 settings:
-	GA_username:
-		default: ""  
-		scope: blog
-	GA_password:
-		default: ""
-		scope: blog
-	GA_profile_id:
-		default: ""
-		scope: blog
-	GA_maxresult:
-		default: 5
-		scope: blog
-	GA_exclude_top:
-		default: ""
-		scope: blog
-	GA_exclude_path:
-		default: ""
-		scope: blog
+   	GA_username:
+        default: ""  
+        scope: blog
+    GA_password:
+        default: ""
+        scope: blog
+    GA_profile_id:
+        default: ""
+        scope: blog
+    GA_maxresult:
+        default: 5
+        scope: blog
+    GA_exclude_top:
+        default: ""
+        scope: blog
+    GA_exclude_path:
+        default: ""
+        scope: blog
 
 tags:
 	function:
 		AccessRankingGA: $AccessRankingGA::AccessRankingGA::Plugin::_hdlr_analytic_tags
 
 default_templates:
-	base_path: templates
-	global:module:
-		m_html_header:
-			label: "Header ARGA"
-	global:module:
-		m_html_footer:
-			label: "Footer ARGA"
-	global:module:
-		m_ranking_widget:
-			label: "AccessRankingGA Widget"
+    base_path: templates
+    global:module:
+        m_html_header:
+            label: "Header ARGA"
+    global:module:
+        m_html_footer:
+            label: "Footer ARGA"
+    global:module:
+        m_ranking_widget:
+            label: "AccessRankingGA Widget"
