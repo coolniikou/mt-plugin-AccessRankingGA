@@ -29,5 +29,5 @@ settings:
         scope: blog
 
 tags:
-	function:
-		AccessRankingGA: $AccessRankingGA::AccessRankingGA::Plugin::_hdlr_analytic_tags
+    function:
+        AccessRankingGA: $AccessRankingGA::AccessRankingGA::Plugin::_hdlr_analytic_tags
