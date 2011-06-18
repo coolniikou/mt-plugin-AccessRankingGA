@@ -30,7 +30,7 @@ jQueryオリジナルプラグインを使い、JSONデータをコンテンツ�
 **span属性で任意の期間から現在までのデータ取得を指定することができます。**   
 レポート取得期間をspanモディファイアで任意の期間を指定することができます。 
 インデックステンプレートに新規ファイル作成し、その中にテンプレートタグを記述することで任意の期間のGoogle Analytics レポートJSONデータが生成されることになります。    
-3パターンの期間指定したインデックスファイルを作成することで[昨日、今週、月間]と期間別でのアクセスランキング表示も可能となります。（jQueryランキング表示プラグインもタブ形式で数パターンのアクセスランキングを表示できます。）  
+3パターンの期間指定したインデックスファイルを作成することで(昨日、今週、月間)と期間別でのアクセスランキング表示も可能となります。（jQueryランキング表示プラグインもタブ形式で数パターンのアクセスランキングを表示できます。）  
 
 
 *デフォルト：属性指定無しは、week(7日間集計)となります。*   
@@ -86,7 +86,7 @@ jQueryプラグイン設置は以下の手順で行ってください。
 
 2.フッター（テンプレートモジュール）</body>に以下のコードを外部スクリプトとして読み込むように設定します。  
 
-    <script type="text/javascript" src="http://your-domain.com/js-folder/rankingtab.js"></script>     
+    <script type="text/javascript" src="http://your-domain.com/js-folder/jquery.rankingtab.js"></script>     
 	$(document).ready( function() {
 			$('div.ranking').rankingtab({
 				baseurl: 'http://your-domain.com blog-index/accessranking_',
@@ -103,18 +103,27 @@ jQuery rankingtab プラグイン設定
 下記のコードを参考に新規にウィジットテンプレート（アクセスランキング表示用）を作成します。作成後は、ウィジットセットに追加します。
 
     <div class="widget-ranking-entries widget-archives widget">
-    <h3 class="widget-header">人気アクセスランキング</h3>
-    <div class="ranking">
-        <ul class="rktab">
-                <li><a href="#day_ago"><em>day_ago</em></a></ll>
-                <li><a href="#week"><em>week</em></a></li>
-                <li><a href="#month"><em>month</em></a></ll>
-        </ul>
+    	<h3 class="widget-header">人気アクセスランキング</h3>
         <div class="widget-content accessranking">
-        </div>
-    </div>
+    		<div class="ranking">
+        		<ul class="rktab">
+                	<li><a href="#day_ago"><em>day_ago</em></a></ll>
+                	<li><a href="#week"><em>week</em></a></li>
+                	<li><a href="#month"><em>month</em></a></ll>
+        		</ul>
+        	</div>
+		</div>
 	</div>
 
+##ウィジットデザイン整形(CSS)    
+インデックステンプレート編集ファイル名スタイルシートに以下のコードを追加することでアクセスランキングウィジットのデザインが整形されます。　　　　　
+
+	/* ranking widget  StyleCatcher imports */
+	@import url(/your-utility-css-folder/rankinglist_widget.css);    
+
+		
+***
+			
 
 ####\*1: スケジュールタスクの実行
 * cron等で定期で$MT_HOME/tools/run_periodic_tasksを実行する(linux or Unix)  
