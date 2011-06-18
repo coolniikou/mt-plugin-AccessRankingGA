@@ -5,6 +5,7 @@ use MT;
 use MT::Util qw( start_end_day epoch2ts format_ts trim );
 use XML::Simple;
 use JSON;
+use Encode;
 use File::Basename qw( basename );
 use Data::Dumper;
 
@@ -63,6 +64,12 @@ sub _hdlr_analytic_tags {
     my $data   = &get_data( $token, $conf );
     my $parser = XML::Simple->new( Forcearray => 1 );
     my $xml    = $parser->XMLin($data);
+	if( MT->VERSION > 4) {
+		foreach my $xentry ( @{$xml->{entry}} ) {
+			$entry->{title}[0] = decode('utf-8', $entry->{title}[0]);
+			$entry->{'dxp:dimension'}->{'ga:pageTitle'}->{value} = decode('utf-8', $entry->{'dxp:dimension'}->{'ga:pageTitle'}->{value});
+		}
+	}
 
     my $json = to_json( $xml->{entry} );
     return $json;

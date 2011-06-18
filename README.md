@@ -104,15 +104,15 @@ jQuery rankingtab プラグイン設定
 
     <div class="widget-ranking-entries widget-archives widget">
     	<h3 class="widget-header">人気アクセスランキング</h3>
-        <div class="widget-content accessranking">
     		<div class="ranking">
         		<ul class="rktab">
                 	<li><a href="#day_ago"><em>day_ago</em></a></ll>
                 	<li><a href="#week"><em>week</em></a></li>
                 	<li><a href="#month"><em>month</em></a></ll>
         		</ul>
+        	<div class="widget-content accessranking">
         	</div>
-		</div>
+			</div>
 	</div>
 
 ##ウィジットデザイン整形(CSS)    
