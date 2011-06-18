@@ -54,19 +54,19 @@ jsonファイルを新規にインデックステンプレートを作成しま�
 * 昨日（1日）集計でのJSONアクセスランキングファイル作成  
 	* テンプレート名: 昨日アクセスランキング
 	* テンプレート記述: `	<mt:AccessRankingGA span="1">	`
-	* 出力名：accssrank_dayago.json  
+	* 出力名：accssranking_dayago.json  
 	* 公開： 公開キュー経由    
 
 * 1週間集計でのJSONアクセスランキング作成  
 	* テンプレート名: 週間アクセスランキング  
 	* テンプレート記述: `	<mt:AccessRankingGA>	`
-	* 出力名：accssrank_week.json  
+	* 出力名：accssranking_week.json  
 	* 公開： 公開キュー経由    
 
 * 月間集計でのJSONアクセスランキング作成  
 	* テンプレート名: 月間アクセスランキング  
 	* テンプレート記述: `	<mt:AccessRankingGA span="30">		`
-	* 出力名：accssrank_month.json  
+	* 出力名：accssranking_month.json  
 	* 公開： 公開キュー経由    
   
 上記ファイル作成後にインデックスファイルの再構築を実行後に公開ファイル名にアクセスし、実際にGoogleAnalyticsデータが取得出来ているか確認してください。
@@ -97,18 +97,19 @@ jQueryプラグイン設置は以下の手順で行ってください。
 jQuery rankingtab プラグイン設定    
 
  * baseurl: jsonファイルが生成されるアドレスを指定します。    
+ (注: baseurlに設定するurlとインデックステンプレートに新規作成したjsonファイルの出力urlが一致している必要があります。)
  * trunk: 表示するタイトルを任意の文字数で区切ります。    
 
-##ウィジット作成
+##ウィジット作成例
 下記のコードを参考に新規にウィジットテンプレート（アクセスランキング表示用）を作成します。作成後は、ウィジットセットに追加します。
 
     <div class="widget-ranking-entries widget-archives widget">
     	<h3 class="widget-header">人気アクセスランキング</h3>
     		<div class="ranking">
         		<ul class="rktab">
-                	<li><a href="#day_ago"><em>day_ago</em></a></ll>
-                	<li><a href="#week"><em>week</em></a></li>
-                	<li><a href="#month"><em>month</em></a></ll>
+                	<li><a href="#day_ago"><em>昨日</em></a></ll>
+                	<li><a href="#week"><em>今週</em></a></li>
+                	<li><a href="#month"><em>今月</em></a></ll>
         		</ul>
         	<div class="widget-content accessranking">
         	</div>
