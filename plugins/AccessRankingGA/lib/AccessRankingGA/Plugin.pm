@@ -72,6 +72,25 @@ sub _hdlr_analytic_tags {
                 $item->{'dxp:dimension'}->{'ga:pageTitle'}->{value} );
         }
     }
+	foreach my $ent ( @{ $xml->{entry} } ) {
+		my $basename =
+			basename( $ent->{'dxp:dimension'}->{'ga:pagePath'}->{value});
+		$basename =~ s/\.html//;
+		my $entry = MT->model('entry')->load( { basename => $basename } );
+		if ($entry) {
+			my $text = remove_thml( $entry->text() );
+			$text = substr( $text, 0, 50 );
+			$text .= ' ...';
+			$ent->{'dxp:dimension'}->{'ga:pageExcerpt'}->{value} = $text;
+			my $author =
+				MT->model('author')->load( { id => $entry->author_id() } );
+			my $author_name = $author->nickname();
+			$ent->{'dxp:dimension'}->{'ga:pageAuthor'}->{value} = $author_name;
+		} else {
+			$ent->{'dxp:dimension'}->{'ga:pageExcerpt'}->{value} = '';
+			$ent->{'dxp:dimension'}->{'ga:pageAuthor'}->{value} = '';
+		}
+	}
 
     my $json = to_json( $xml->{entry} );
     return $json;
