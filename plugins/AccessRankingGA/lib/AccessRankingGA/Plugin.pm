@@ -64,12 +64,12 @@ sub _hdlr_analytic_tags {
     my $data   = &get_data( $token, $conf );
     my $parser = XML::Simple->new( Forcearray => 1 );
     my $xml    = $parser->XMLin($data);
-    if ( MT->VERSION > 4 ) {
-        foreach my $xentry ( @{ $xml->{entry} } ) {
-            $entry->{title}[0] = decode( 'utf-8', $entry->{title}[0] );
-            $entry->{'dxp:dimension'}->{'ga:pageTitle'}->{value} =
+    if ( MT->VERSION >= 5 ) {
+        foreach my $item ( @{ $xml->{entry} } ) {
+            $item->{title}[0] = decode( 'utf-8', $item->{title}[0] );
+            $item->{'dxp:dimension'}->{'ga:pageTitle'}->{value} =
               decode( 'utf-8',
-                $entry->{'dxp:dimension'}->{'ga:pageTitle'}->{value} );
+                $item->{'dxp:dimension'}->{'ga:pageTitle'}->{value} );
         }
     }
 
