@@ -133,4 +133,6 @@ jQuery rankingtab プラグイン設定
 * XML-RPCのAPI、mt.runPeriodicTasksを定期的に利用する  
 
 ####　更新履歴
-* 2011/5/25 READMEファイル修正、文字エンコード部分修正。
+
+ * 2011/6/18 README編集。バージョン別内部文字エンコード対応。
+ * 2011/5/25 READMEファイル修正、文字エンコード部分修正。
