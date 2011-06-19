@@ -120,7 +120,7 @@ jQuery rankingtab プラグイン設定
     	<h3 class="widget-header">人気アクセスランキング</h3>
     		<div class="ranking">
         		<ul class="rktab">
-                	<li><a href="#day_ago"><em>昨日</em></a></ll>
+                	<li><a href="#dayago"><em>昨日</em></a></ll>
                 	<li><a href="#week"><em>今週</em></a></li>
                 	<li><a href="#month"><em>今月</em></a></ll>
         		</ul>
