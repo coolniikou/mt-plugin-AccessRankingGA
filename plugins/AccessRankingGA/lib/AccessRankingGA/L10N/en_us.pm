@@ -12,6 +12,7 @@ use vars qw( %Lexicon );
 	'as_ASTERISK' => '* mark required configuration',
 	'as_GA_Username' => '* Google Analytics<br />username',
 	'as_GA_Password' => '* Google Analytics<br />password',
+	'as_GA_Api_key' => '* Google Analytics API Access Key in APIs Console<br />APIKEY',
 	'as_GA_ProfileID' => '* Google Analytics<br />ProfileID',
 	'as_DATA_SET_DETAIL' => 'Setting GADATA Preview Detail',
 	'as_GA_Maxresult' => 'Maximum number of listing entries',

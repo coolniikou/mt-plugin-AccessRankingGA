@@ -16,8 +16,8 @@ sub doLog {
     use MT::Log;
     my $log = MT::Log->new;
     $log->message($msg);
-    $log->level( MT::Log::DEBUG() );
-    $log->class($class) if $class;
+	$log->level(MT::Log::DEBUG());
+	$log->class($class) if $class;
     $log->save or die $log->errstr;
 }
 
@@ -47,8 +47,7 @@ sub _hdlr_analytic_tags {
     my $conf = {
         user => $plugin->get_config_value( 'GA_username', 'blog:' . $blog_id ),
         pass => $plugin->get_config_value( 'GA_password', 'blog:' . $blog_id ),
-        api_key =>
-          $plugin->get_config_value( 'GA_api_key', 'blog:' . $blog_id ),
+        api_key => $plugin->get_config_value( 'GA_api_key', 'blog:' . $blog_id ),
         profileid =>
           $plugin->get_config_value( 'GA_profile_id', 'blog:' . $blog_id ),
         maxresult =>
@@ -64,20 +63,17 @@ sub _hdlr_analytic_tags {
 
     my $token  = &get_token($conf);
     my $data   = &get_data( $token, $conf );
-    my $parser = XML::Simple->new( ForceArray => 1 );
+    my $parser = XML::Simple->new(ForceArray => 1);
     my $xml    = $parser->XMLin($data);
-    if ( MT->VERSION > 4 ) {
-        foreach my $entry ( @{ $xml->{entry} } ) {
-            $entry->{title}[0]->{content} =
-              decode( 'utf-8', $entry->{title}[0]->{content} );
-            $entry->{'dxp:dimension'}->{'ga:pageTitle'}->{value} =
-              decode( 'utf-8',
-                $entry->{'dxp:dimension'}->{'ga:pageTitle'}->{value} );
-        }
-    }
+	if( MT->VERSION > 4) {
+		foreach my $entry ( @{ $xml->{entry} } ) {
+			$entry->{title}[0]->{content} = decode('utf-8', $entry->{title}[0]->{content});
+			$entry->{'dxp:dimension'}->{'ga:pageTitle'}->{value} = decode('utf-8', $entry->{'dxp:dimension'}->{'ga:pageTitle'}->{value});
+		}
+	}
 
-    my $json = to_json( $xml->{entry} );
-    return $json;
+	my $json = to_json( $xml->{entry} );
+	return $json;
 }
 
 sub get_token {
@@ -131,8 +127,8 @@ sub get_data {
       . "end-date="
       . $conf->{end} . "&"
       . "max-results="
-      . $conf->{maxresult} . "&"
-      . $conf->{api_key};
+      . $conf->{maxresult}. "&"
+			. $conf->{api_key};	
     if ( $conf->{ex_top} || $conf->{ex_path} && $conf->{ex_path} ne '' ) {
         $url .= "&filters=";
         $url .= "ga:pagePath!%3D%2F;ga:pagePath!%3D%2Findex.html;"

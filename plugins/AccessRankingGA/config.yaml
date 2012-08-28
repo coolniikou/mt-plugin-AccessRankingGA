@@ -15,6 +15,9 @@ settings:
     GA_password:
         default: ""
         scope: blog
+    GA_api_key:
+        default: ""
+        scope: blog
     GA_profile_id:
         default: ""
         scope: blog

@@ -13,6 +13,7 @@ use vars qw( %Lexicon );
 	'as_ASTERISK' => '* 印 必須項目',
 	'as_GA_Username' => '* Google Analytics<br />ユーザ名',
 	'as_GA_Password' => '* Google Analytics<br />パスワード',
+	'as_GA_Api_key' => '* Google Analytics API Key<br />API KEY',
 	'as_GA_ProfileID' => '* Google Analytics<br />プロファイル ID',
 	'as_GA_Maxresult' => 'エントリー最大表示数<br />（訪問数昇順）',
 	'as_GA_ExcludeTOP' => 'トップページ除外',
