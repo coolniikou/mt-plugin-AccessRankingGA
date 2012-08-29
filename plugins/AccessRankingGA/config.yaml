@@ -1,9 +1,9 @@
 id: 'AccessRankingGA'
 key: 'accessrankingga'
 name: 'AccessRankingGA'
-version: 0.4 
+version: 0.5.retract
 description: '<MT_TRANS phrase="as_DESCRIPTION">'
-doc_link: 'http://friendfeed.com/coolniikou/27ecf1ad/coolniikou-mt-plugin-accessrankingga-at'
+doc_link: 'https://github.com/coolniikou/mt-plugin-AccessRankingGA'
 author_name: '<MT_TRANS phrase="as_AUTHOR_NAME">'
 author_link: 'http://friendfeed.com/coolniikou/'
 l10n_class: 'AccessRankingGA::L10N'
@@ -15,20 +15,11 @@ settings:
     GA_password:
         default: ""
         scope: blog
-    GA_api_key:
-        default: ""
-        scope: blog
     GA_profile_id:
         default: ""
         scope: blog
     GA_maxresult:
         default: 5
-        scope: blog
-    GA_exclude_top:
-        default: ""
-        scope: blog
-    GA_exclude_path:
-        default: ""
         scope: blog
 
 tags:

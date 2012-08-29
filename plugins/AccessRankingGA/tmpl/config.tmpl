@@ -13,11 +13,6 @@
 	    <input type="password" name="GA_password" id="GA_password" value="<mt:var name="GA_password" escape="html">" />
 	</mtapp:setting></li>
 	<li><mtapp:setting
-	    id="GA_api_key"
-	    label="<__trans phrase="as_GA_Api_key">">
-	    <input type="api_key" name="GA_api_key" id="GA_api_key" value="<mt:var name="GA_api_key" escape="html">" />
-	</mtapp:setting></li>
-	<li><mtapp:setting
 	    id="GA_profile_id"
 	    label="<__trans phrase="as_GA_ProfileID">">
 	    <input type="text" name="GA_profile_id" id="GA_profile_id" value="<mt:var name="GA_profile_id" escape="html">" />
@@ -29,19 +24,5 @@
 	    id="GA_maxresult"
 	    label="<__trans phrase="as_GA_Maxresult">">
 	    <input type="text" name="GA_maxresult" id="GA_maxresult" value="<mt:var name="GA_maxresult" escape="html">" />
-	</mtapp:setting></li>
-	<li><mtapp:setting
-	    id="GA_exclude_top"
-	    label="<__trans phrase="as_GA_ExcludeTOP">"
-		show_hint="1"
-		hint="<__trans phrase="as_GA_ExcludeTOP_Hint">">
-	    <input type="checkbox" name="GA_exclude_top" id="GA_exclude_top" value="1"<mt:if name="GA_exclude_top"> checked="checked"</mt:if> />
-	</mtapp:setting></li>
-	<li><mtapp:setting
-	  id="GA_exclude_path"
-	  label="<__trans phrase="as_GA_Exclude_Path">" 
-	  show_hint="1"
-	  hint="<__trans phrase="as_GA_Exclude_Path_Hint">">
-	<textarea id="exclude_path" name="GA_exclude_path" rows="4" style="width:100%"><mt:var name="GA_exclude_path" escape="html"></textarea>
 	</mtapp:setting></li>
 </ul>

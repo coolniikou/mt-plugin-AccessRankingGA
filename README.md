@@ -145,7 +145,25 @@ jQuery rankingtab プラグイン設定
 * ログフィードを定期的に取得するようにする(	フィードリーダ等で定期的に読み込むように設定する)  
 * XML-RPCのAPI、mt.runPeriodicTasksを定期的に利用する  
 
+#### 構成
+plugins/AccessRankingGA/
+├── config.yaml
+├── lib
+│   └── AccessRankingGA
+│       ├── L10N
+│       │   ├── en_us.pm
+│       │   └── ja.pm
+│       ├── L10N.pm
+│       └── Plugin.pm
+└── tmpl
+    └── config.tmpl
+
 ####　更新履歴
+ * 2012/8/30 パージョン0.5リリース
+             Google Data API エンドポイント変更
+	     機能削除（ダウングレード）トップパス、フォルダパス除外機能他
+             バグ修正
+             jquery.rankingtab.js修正
  * 2011/6/19 README編集 パージョン0.4リリース
  * 2011/6/18 README編集。バージョン別内部文字エンコード対応。
  * 2011/5/25 READMEファイル修正、文字エンコード部分修正。
