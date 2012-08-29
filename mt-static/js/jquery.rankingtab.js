@@ -29,20 +29,22 @@
 			var list = '<ul class="rk_list">';
 			var c = 1;
 			for (i=0; i<a.length; i++) {
-				var title = a[i]['dxp:dimension']['ga:pageTitle'].value;
+				var url = a[i][0];
+				var title = a[i][1];
 					title = title.substr(0,opts.trunc);
 					title += '...';
-				var url = a[i]['dxp:dimension']['ga:pagePath'].value;
-				list += '<li class="rk_item">'+c+' : '+'<a href="'+url+'">'+title+'</a></li>';
+				list += '<li class="rk_item"><span class="rk_rank">';
+				list += c + ':</span><a href="';
+				list += url + '">';
+				list += title + '</a></li>';
 				c++;
 			}
-
 			list += '</ul>';
 			$("div.accessranking").empty().html(list);
 		}
 
         $.fn.rankingtab.defaults = {
-			trunc: 40
+			trunc: 60
         };
 
 })(jQuery);

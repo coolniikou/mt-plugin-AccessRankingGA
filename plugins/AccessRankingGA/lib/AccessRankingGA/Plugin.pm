@@ -1,25 +1,10 @@
 package AccessRankingGA::Plugin;
+
 use strict;
 use base qw(MT::Plugin);
 use MT;
 use MT::Util qw( start_end_day epoch2ts format_ts trim );
-use XML::Simple;
-use JSON;
 use Encode;
-use File::Basename qw( basename );
-use Data::Dumper;
-
-## DEBUC CODE
-sub doLog {
-    my ( $msg, $class ) = @_;
-    return unless defined($msg);
-    use MT::Log;
-    my $log = MT::Log->new;
-    $log->message($msg);
-    $log->level( MT::Log::DEBUG() );
-    $log->class($class) if $class;
-    $log->save or die $log->errstr;
-}
 
 sub plugin {
     return MT->component('AccessRankingGA');
@@ -53,10 +38,6 @@ sub _hdlr_analytic_tags {
           $plugin->get_config_value( 'GA_profile_id', 'blog:' . $blog_id ),
         maxresult =>
           $plugin->get_config_value( 'GA_maxresult', 'blog:' . $blog_id ),
-        ex_top =>
-          $plugin->get_config_value( 'GA_exclude_top', 'blog:' . $blog_id ),
-        ex_path => trim(
-            $plugin->get_config_value( 'GA_exclude_path', 'blog:' . $blog_id )
         ),
         start => format_ts( '%Y-%m-%d', $ago,   $blog ),
         end   => format_ts( '%Y-%m-%d', $today, $blog ),
@@ -64,20 +45,10 @@ sub _hdlr_analytic_tags {
 
     my $token  = &get_token($conf);
     my $data   = &get_data( $token, $conf );
-    my $parser = XML::Simple->new( ForceArray => 1 );
-    my $xml    = $parser->XMLin($data);
-    if ( MT->VERSION > 4 ) {
-        foreach my $entry ( @{ $xml->{entry} } ) {
-            $entry->{title}[0]->{content} =
-              decode( 'utf-8', $entry->{title}[0]->{content} );
-            $entry->{'dxp:dimension'}->{'ga:pageTitle'}->{value} =
-              decode( 'utf-8',
-                $entry->{'dxp:dimension'}->{'ga:pageTitle'}->{value} );
-        }
-    }
+    return $data if ( MT->VERSION < 5 );
 
-    my $json = to_json( $xml->{entry} );
-    return $json;
+	$data = decode_utf8($data);
+    return $data;
 }
 
 sub get_token {
@@ -131,17 +102,7 @@ sub get_data {
       . "end-date="
       . $conf->{end} . "&"
       . "max-results="
-      . $conf->{maxresult} . "&"
-      . $conf->{api_key};
-    if ( $conf->{ex_top} || $conf->{ex_path} && $conf->{ex_path} ne '' ) {
-        $url .= "&filters=";
-        $url .= "ga:pagePath!%3D%2F;ga:pagePath!%3D%2Findex.html;"
-          if ( defined( $conf->{ex_top} ) );
-        my @ex_paths = ( $conf->{ex_path} =~ /(\S+)/g );
-        foreach my $exc (@ex_paths) {
-            $url .= "ga:pagePath!~" . $exc . ";";
-        }
-    }
+      . $conf->{maxresult};
 
     my @headers = ( Authorization => "GoogleLogin Auth=$token" );
     my $res = $ua->get( $url, @headers );
