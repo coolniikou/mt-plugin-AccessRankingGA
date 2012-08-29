@@ -1,0 +1,15 @@
+AccessRankingGA/
+├── config.yaml
+├── lib
+│   └── AccessRankingGA
+│       ├── L10N
+│       │   ├── en_us.pm
+│       │   └── ja.pm
+│       ├── L10N.pm
+│       └── Plugin.pm
+├── t
+│   └── 00-compile.t
+└── tmpl
+    └── config.tmpl
+
+5 directories, 7 files

@@ -85,24 +85,24 @@ JSONファイル出力用に新規インデックステンプレートを作成�
 上記ファイル作成後にインデックスファイルの再構築を実行後に公開ファイル名にアクセスし、実際にGoogleAnalyticsデータが取得出来ているか確認してください。
 データ取得出来ていない場合は、システムログの確認とプラグイン設定項目を再確認してください。
 
+##template/ フォルダ
+下記の設定コードサンプルはtemplate/フォルダの中にheader追加コード、footer追加コード、ウィジットコードをmtmlファイルにしてあります。参照ください。
+
 ##jQueryプラグインコード設置  
 MTシステム側でGoogleAnalyticsレポートからデータを取得し、JSONファイルを生成します。生成されたJSONファイルをjQueryプラグインを使って読み込み、ブログ（HTMLページ）上に表示させます。  
 jQueryプラグイン設置は以下の手順で行ってください。    
 1. ヘッダ（テンプレートモジュール）にjQuery読み込み用のコードを追加します。以下のコードを参考に。  
-最新のjQuery libraryを読み込むように [Google Libraries API * Developer's Guide * Google Libraries API * Google Code](http://code.google.com/intl/ja/apis/libraries/devguide.html#jquery) を参照し内容を適宜変更してください。 
-(2011/5/26日現在)  
+最新のjQuery libraryを読み込むように [Google Libraries API * Developer's Guide * Google Libraries API * Google Code](https://developers.google.com/speed/libraries/devguide?hl=ja#jquery) を参照し内容を適宜変更してください。 
+(2012/8/29日現在)  
 
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-        google.load("jquery", "1.6.1");
-    </script>     
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 
 2.ヘッダーもしくは、フッター（テンプレートモジュール）</body>後に以下のコードを外部スクリプトとして読み込むように設定します。  
 
-    <script type="text/javascript" src="http://your-domain.com/js-folder/jquery.rankingtab.js"></script>     
+    <script type="text/javascript" src="http://your-domain.com/blog-index/js/jquery.rankingtab.js"></script>     
 	$(document).ready( function() {
 			$('div.ranking').rankingtab({
-				baseurl: 'http://your-domain.com blog-index/accessranking_',
+				baseurl: 'http://your-domain.com/blog-index/accessranking_',
 				trunc: 60
 			});
  	});
@@ -135,7 +135,23 @@ jQuery rankingtab プラグイン設定
 	/* ranking widget  StyleCatcher imports */
 	@import url(/your-utility-css-folder/rankinglist_widget.css);    
 
-		
+##プラグインファイル構成  
+
+		AccessRankingGA/   
+		├── config.yaml   
+		├── lib   
+		│   └── AccessRankingGA   
+		│       ├── L10N   
+		│       │   ├── en_us.pm   
+		│       │   └── ja.pm   
+		│       ├── L10N.pm   
+		│       └── Plugin.pm   
+		├── t   
+		│   └── 00-compile.t   
+		└── tmpl   
+		    └── config.tmpl   
+		   
+		5 directories, 7 files
 ***
 			
 
@@ -146,6 +162,11 @@ jQuery rankingtab プラグイン設定
 * XML-RPCのAPI、mt.runPeriodicTasksを定期的に利用する  
 
 ####　更新履歴
+ * 2012/8/29 README編集 パージョン0.4dリリース  
+  * 機能ダウングレード（除外機能削除）  
+  * apiエンドポイントv3へ変更  
+  * dimention,metrics変更  
+  * XML::Simple,JSON削除   
  * 2011/6/19 README編集 パージョン0.4リリース
  * 2011/6/18 README編集。バージョン別内部文字エンコード対応。
  * 2011/5/25 READMEファイル修正、文字エンコード部分修正。
