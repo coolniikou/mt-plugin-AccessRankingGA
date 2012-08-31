@@ -32,19 +32,17 @@ sub _hdlr_analytic_tags {
     my $conf = {
         user => $plugin->get_config_value( 'GA_username', 'blog:' . $blog_id ),
         pass => $plugin->get_config_value( 'GA_password', 'blog:' . $blog_id ),
-        api_key =>
-          $plugin->get_config_value( 'GA_api_key', 'blog:' . $blog_id ),
         profileid =>
           $plugin->get_config_value( 'GA_profile_id', 'blog:' . $blog_id ),
         maxresult =>
-          $plugin->get_config_value( 'GA_maxresult', 'blog:' . $blog_id ), ),
+          $plugin->get_config_value( 'GA_maxresult', 'blog:' . $blog_id ),
         start => format_ts( '%Y-%m-%d', $ago,   $blog ),
         end   => format_ts( '%Y-%m-%d', $today, $blog ),
     };
 
     my $token = &get_token($conf);
     my $data = &get_data( $token, $conf );
-    return $data if ( MT->VERSION < 5 );
+    return $data if( MT->VERSION < 5 );
 
     $data = decode_utf8($data);
     return $data;
@@ -102,7 +100,6 @@ sub get_data {
         . $conf->{end} . "&"
         . "max-results="
         . $conf->{maxresult};
-
       my @headers = ( Authorization => "GoogleLogin Auth=$token" );
       my $res = $ua->get( $url, @headers );
       if ( $res->is_success ) {
