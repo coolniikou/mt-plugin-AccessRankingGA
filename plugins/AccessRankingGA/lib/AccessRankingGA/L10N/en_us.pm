@@ -15,6 +15,9 @@ use vars qw( %Lexicon );
 	'as_GA_ProfileID' => '* Google Analytics<br />ProfileID',
 	'as_DATA_SET_DETAIL' => 'Setting GADATA Preview Detail',
 	'as_GA_Maxresult' => 'Maximum number of listing entries',
+	'as_GA_ExcludeTOP_Hint' => 'check this if you want to exclude Top-Page DATA',
+	'as_GA_Exclude_Optional_Path' => 'Exclude List of<br/>Specific Path',
+	'as_GA_Exclude_Optional_Path_Hint' => 'input specific Page Path that you want to exclude. ex: input "photoshop" in case of photoshop category(path) exclude',
 	'as_token_error' => 'Cannot get token, please confirm your settigs of Google Analytics login (as of login account or password).', 
 	'as_contents_error' => 'Cannot get contents, please confirm your settigs of Google Analytics login (as of profileID).',
 );

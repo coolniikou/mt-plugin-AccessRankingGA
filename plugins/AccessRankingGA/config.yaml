@@ -1,11 +1,11 @@
 id: 'AccessRankingGA'
 key: 'accessrankingga'
 name: 'AccessRankingGA'
-version: 0.4d
+version: 0.5
 description: '<MT_TRANS phrase="as_DESCRIPTION">'
 doc_link: 'https://github.com/coolniikou/mt-plugin-AccessRankingGA'
 author_name: '<MT_TRANS phrase="as_AUTHOR_NAME">'
-author_link: 'http://friendfeed.com/coolniikou/'
+author_link: 'http://twitter.com/cool_ni_ikou/'
 l10n_class: 'AccessRankingGA::L10N'
 blog_config_template: 'config.tmpl'
 settings:
@@ -23,6 +23,12 @@ settings:
         scope: blog
     GA_maxresult:
         default: 5
+        scope: blog
+    GA_exclude_top:
+        default: ""
+        scope: blog
+    GA_exclude_optional_path:
+        default: ""
         scope: blog
 
 tags:

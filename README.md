@@ -5,6 +5,9 @@ AccessRankingGA プラグインは、Google Analyticsレポート情報からユ
 jQueryオリジナルプラグインを使い、JSONデータをコンテンツ内にリスト表示させます。  
 簡単にGoogleAnalyticsデータを利用したアクセスランキングをMovable Typeに実装できrるようになります。  
 
+####更新履歴
+ * 2012/10/16 README編集 パージョン0.5リリース  
+
 ##AccessRankingGAインストール・設定までの流れ    
  1. **インストール**    
 	* プラグインフォルダ($MT_HOME/plugin)にAccessRankingGAプラグインフォルダを追加。    
@@ -99,10 +102,10 @@ jQueryプラグイン設置は以下の手順で行ってください。
 
 2.ヘッダーもしくは、フッター（テンプレートモジュール）</body>後に以下のコードを外部スクリプトとして読み込むように設定します。  
 
-    <script type="text/javascript" src="http://your-domain.com/blog-index/js/jquery.rankingtab.js"></script>     
+    <script type="text/javascript" src="http://example.com/MTHOME/mt-static/js/jquery.rankingtab.js"></script>     
 	$(document).ready( function() {
-			$('div.ranking').rankingtab({
-				baseurl: 'http://your-domain.com/blog-index/accessranking_',
+			$('.widget-accessranking').rankingtab({
+				baseurl: 'http://example.com/MTHOME/mt-staic/js/accessranking_',
 				trunc: 60
 			});
  	});
@@ -116,15 +119,15 @@ jQuery rankingtab プラグイン設定
 ##ウィジット作成例
 下記のコードを参考に新規にウィジットテンプレート（アクセスランキング表示用）を作成します。作成後は、ウィジットセットに追加します。
 
-    <div class="widget-ranking-entries widget-archives widget">
+    <div class="widget-accessranking widget-archives widget">
     	<h3 class="widget-header">人気アクセスランキング</h3>
-    		<div class="ranking">
-        		<ul class="rktab">
+    		<div class="widget-content">
+        		<ul class="entries">
                 	<li><a href="#dayago"><em>昨日</em></a></ll>
                 	<li><a href="#week"><em>今週</em></a></li>
                 	<li><a href="#month"><em>今月</em></a></ll>
         		</ul>
-        	<div class="widget-content accessranking">
+        	<div class="tab-content accessranking-content">
         	</div>
 			</div>
 	</div>
@@ -133,25 +136,39 @@ jQuery rankingtab プラグイン設定
 インデックステンプレート編集ファイル名スタイルシートに以下のコードを追加することでアクセスランキングウィジットのデザインが整形されます。　　　　　
 
 	/* ranking widget  StyleCatcher imports */
-	@import url(/your-utility-css-folder/rankinglist_widget.css);    
+	@import url(/your-utility-css-folder/widget-accessraking.css);    
 
 ##プラグインファイル構成  
 
-		AccessRankingGA/   
-		├── config.yaml   
-		├── lib   
-		│   └── AccessRankingGA   
-		│       ├── L10N   
-		│       │   ├── en_us.pm   
-		│       │   └── ja.pm   
-		│       ├── L10N.pm   
-		│       └── Plugin.pm   
-		├── t   
-		│   └── 00-compile.t   
-		└── tmpl   
-		    └── config.tmpl   
-		   
-		5 directories, 7 files
+	mt-plugin-AccessRankingGA/
+	├── README.md
+	├── mt-static
+	│   ├── css
+	│   │   └── widget-accessranking.css
+	│   └── js
+	│       └── jquery.rankingtab.js
+	├── plugins
+	│   └── AccessRankingGA
+	│       ├── config.yaml
+	│       ├── lib
+	│       │   └── AccessRankingGA
+	│       │       ├── L10N
+	│       │       │   ├── en_us.pm
+	│       │       │   └── ja.pm
+	│       │       ├── L10N.pm
+	│       │       └── Plugin.pm
+	│       ├── t
+	│       │   ├── 00-compile.t
+	│       │   └── 01-tag.t
+	│       └── tmpl
+	│           └── config.tmpl
+	├── templates
+		   ├── added-html-header.mtml
+		   ├── footer-load-jquery.mtml
+		   └── widget-accessranking.mtml
+
+
+
 ***
 			
 
@@ -162,7 +179,11 @@ jQuery rankingtab プラグイン設定
 * XML-RPCのAPI、mt.runPeriodicTasksを定期的に利用する  
 
 ####　更新履歴
- * 2012/8/29 README編集 パージョン0.4dリリース  
+ * 2012/10/16 README編集 パージョン0.5リリース
+ 	* GoogleAPI filter機能の変更により、アクセスできない不具合に対応。
+ 	* 機能アップグレード（トップページ、特定パス除外機能追加）
+ 	* サンプルwidget テンプレート、css . jquery.rankingtab 修正
+ * 2012/9/01 README編集 パージョン0.4dリリース  
   * 機能ダウングレード（除外機能削除）  
   * apiエンドポイントv3へ変更  
   * dimention,metrics変更  

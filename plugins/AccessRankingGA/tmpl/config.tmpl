@@ -25,4 +25,18 @@
 	    label="<__trans phrase="as_GA_Maxresult">">
 	    <input type="text" name="GA_maxresult" id="GA_maxresult" value="<mt:var name="GA_maxresult" escape="html">" />
 	</mtapp:setting></li>
+	<li><mtapp:setting
+	    id="GA_exclude_top"
+	    label="<__trans phrase="as_GA_Exclude_Top">"
+			show_hint="1"
+			hint="<__trans phrase="as_GA_Exclude_Top_Hint">">
+	    <input type="checkbox" name="GA_exclude_top" id="GA_exclude_top" value="1"<mt:If name="GA_exclude_top"> checked="checked"</mt:If> />
+	</mtapp:setting></li>
+	<li><mtapp:setting
+	    id="GA_exclude_optional_path"
+	    label="<__trans phrase="as_GA_Exclude_Optional_Path">"
+			show_hint="1"
+			hint="<__trans phrase="as_GA_Exclude_Optional_Path_Hint">">
+	    <textarea name="GA_exclude_optional_path" id="GA_exclude_optional_path" rows="4" style="width: 100%;"><mt:var name="GA_exclude_optional_path" escape="html"></textarea>
+	</mtapp:setting></li>
 </ul>

@@ -1,50 +1,55 @@
 ;(function($){
-        $.fn.rankingtab = function(options) {
+     $.fn.rankingtab = function(options) {
 
-			var opts = $.extend({}, $.fn.rankingtab.defaults, options);
+      var $options = $.extend({}, $.fn.rankingtab.defaults, options);
 
-			return this.each(function() {
-				var $rklist = $(this);
-				$('ul.rktab li a', $rklist).bind('click', function() {
-					onclick.call(this, $rklist, opts);
-					return false;
-				}).filter(':first').click();
-			});
-		}; 
+      return this.each(function() {
+        var $elem = $(this)
+        , $children = $elem.find('li a');
+        
+        $children.on('click', function() {
+          onclick.call(this, $elem, $options);
+            return false;
+        }).filter(':first').click();
 
-		function onclick($rklist, opts) {
-			$('li.selected', $rklist).removeClass('selected');
-			var $a = $(this).parent().addClass('selected');
-			get_data($(this).text(), $rklist, opts);
-		}
+      });
+    }; 
 
-		function get_data(tag, $rklist, opts) {
-			var url = opts.baseurl+tag+'.json';
-			$.getJSON(url, function(a) {
-				show_data(a, $rklist, opts);
-			});
-		}
+    function onclick($elem, $options ) {
+      $elem.find('li').removeClass('active');
+      var tag = $(this).attr('href').replace('#', '');
+      $(this).parent().addClass('active');
+      get_data(tag, $elem, $options);
+    }
 
-		function show_data(a, $rklist, opts) {
-			var list = '<ul class="rk_list">';
-			var c = 1;
-			for (i=0; i<a.length; i++) {
-				var url = a[i][0];
-				var title = a[i][1];
-					title = title.substr(0,opts.trunc);
-					title += '...';
-				list += '<li class="rk_item"><span class="rk_rank">';
-				list += c + ':</span><a href="';
-				list += url + '">';
-				list += title + '</a></li>';
-				c++;
-			}
-			list += '</ul>';
-			$("div.accessranking").empty().html(list);
-		}
+    function get_data(tag, $elem, $options) {
+      var url = $options.url+tag+'.json';
+      $.getJSON(url, function(data) {
+            show_data(data, $elem, $options);
+      });
+    }
 
-        $.fn.rankingtab.defaults = {
-			trunc: 60
-        };
+    function show_data(data, $elem, $options) {
+      var list = '<ul class="entries">'
+      , a = data.rows
+      , c = 1;
+      for (i=0; i<a.length; i++) {
+        var url = a[i][0]
+        , title = a[i][1];
+        title = title.substr(0, $options.trunc);
+        title += '...';
+        list += '<li class="entry-item"><span class="ranking-count">';
+        list += c + ': </span><a href="';
+        list += url + '">';
+        list += title + '</a></li>';
+        c++;
+      }
+      list += '</ul>';
+      $('.accessranking-content', $elem).empty().html(list);
+    }
+
+    $.fn.rankingtab.defaults = {
+          trunc: 60
+    };
 
 })(jQuery);
