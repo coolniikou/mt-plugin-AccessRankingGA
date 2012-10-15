@@ -167,10 +167,7 @@ jQuery rankingtab プラグイン設定
 		   ├── footer-load-jquery.mtml
 		   └── widget-accessranking.mtml
 
-
-
 ***
-			
 
 ####\*1: スケジュールタスクの実行
 * cron等で定期で$MT_HOME/tools/run_periodic_tasksを実行する(linux or Unix)  
