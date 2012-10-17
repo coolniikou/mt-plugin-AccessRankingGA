@@ -5,30 +5,39 @@ AccessRankingGA プラグインは、Google Analyticsレポート情報からユ
 jQueryオリジナルプラグインを使い、JSONデータをコンテンツ内にリスト表示させます。  
 簡単にGoogleAnalyticsデータを利用したアクセスランキングをMovable Typeに実装できrるようになります。  
 
-####更新履歴
+####更新履歴  [下記参照](#koushin)
  * 2012/10/16 README編集 パージョン0.5リリース  
 
+####TODO
+ダッシュボードにレポートウィジット生成   
+
+<a name="top">
 ##AccessRankingGAインストール・設定までの流れ    
- 1. **インストール**    
-	* プラグインフォルダ($MT_HOME/plugin)にAccessRankingGAプラグインフォルダを追加。    
-	* jQueryスクリプトをjsフォルダ（任意）にアップロード。[mt_static/js/jquery.rankingtag.js]  
-	* cssフォルダ（任意）にアップロード。[mt_static/css/rankinglist_widget.css]  
+ 1. **インストール**  [下記参照](#folder)   
+	* プラグインフォルダ($MT_HOME/plugin)にAccessRankingGAプラグインフォルダを追加。  
+	* jQueryスクリプトをjsフォルダ（任意）にアップロード。[mt-static/js/jquery.rankingtab.js]  
+	* cssフォルダ（任意）にアップロード。[mt-static/css/widget-accessranking.css]  
  2. **プラグイン設定**    
 	* プラグインページにて必要情報を設定。（ログインアカウント名、パスワード、レポートID、最大表示件数）   
+	[下記参照](#setting)  
  3. **デザインテンプレート編集・作成**   
-	* 新規インデックステンプレート作成 [下記参照：インデックステンプレート作成]    
-	* ヘッダーテンプレート編集。ヘッダー部分にjQueryコードを追加。 [下記参照: jQueryコード設置]    
-	* ヘッダーテンプレート編集。ヘッダー部分にcssを追加。 [下記参照: jQueryコード設置]    
-	* フッターテンプレート編集。フッター部分に外部スクリプト（オリジナルプラグイン）読み込みコードを追加。    [下記参照: jQueryコード設置]  
-	* 新規でウィジットテンプレート作成。   
+	* 新規インデックステンプレート作成 
+	* ヘッダーテンプレート編集。ヘッダー部分にjQueryコードを追加。  [下記参照](#jquery)  
+	* ヘッダーテンプレート編集。ヘッダー部分にcssを追加。  [下記参照](#css)  
+	* フッターテンプレート編集。フッター部分に外部スクリプト（オリジナルプラグイン）読み込みコードを追加。    [下記参照](#jquery)  
+	* 新規でウィジットテンプレート作成。   [下記参照](#widget)   
 	* 作成したウィジットテンプレートをウィジットセットの任意の位置に追加。   
  4. **再構築**    
 	* インデックステンプレートを再構築することでアクセスランキングが任意の位置に表示されます。     
  5. **定期実行スケジュール設定**    
 	* 定期でのスケジュールタスク実行(\*1) を設定することで最新データからアクセスランキング表示が可能となります。  
+		\*1:[下記参照](#schedule)   
 
+<a name="templatetag">
 ##追加されるテンプレートタグ
      <mt:AccessRankingGA>
+
+<a name="modifier">
 ###span モディファイア
 **span属性で任意の期間から現在までのデータ取得を指定することができます。**   
 レポート取得期間をspanモディファイアで任意の期間を指定することができます。 
@@ -49,6 +58,7 @@ jQueryオリジナルプラグインを使い、JSONデータをコンテンツ�
 
 	<mt:AccessRankingGA span="1">
 
+<a name="setting">
 ##プラグイン設定    
 AccessRankingGAでは、GoogleAnalyticsレポートからデータを取り出す際に詳細設定することができるようになっています。　        
 **トップページをランキング表示から除外したい場合**     
@@ -62,6 +72,8 @@ AccessRankingGAでは、GoogleAnalyticsレポートからデータを取り出�
 「除外パスリスト」に　-2.html または、-3.html　と入力することで除外したデータを表示することできるようになります。
 
 
+[to the top](#top)
+<a name="template">
 ##インデックステンプレート作成
 JSONファイル出力用に新規インデックステンプレートを作成します。  
 出力ファイル名を期間毎にわかりやすく命名することを推奨します。  
@@ -88,9 +100,12 @@ JSONファイル出力用に新規インデックステンプレートを作成�
 上記ファイル作成後にインデックスファイルの再構築を実行後に公開ファイル名にアクセスし、実際にGoogleAnalyticsデータが取得出来ているか確認してください。
 データ取得出来ていない場合は、システムログの確認とプラグイン設定項目を再確認してください。
 
+<a name="templatefolder">
 ##template/ フォルダ
 下記の設定コードサンプルはtemplate/フォルダの中にheader追加コード、footer追加コード、ウィジットコードをmtmlファイルにしてあります。参照ください。
 
+[to the top](#top)
+<a name="jquery">
 ##jQueryプラグインコード設置  
 MTシステム側でGoogleAnalyticsレポートからデータを取得し、JSONファイルを生成します。生成されたJSONファイルをjQueryプラグインを使って読み込み、ブログ（HTMLページ）上に表示させます。  
 jQueryプラグイン設置は以下の手順で行ってください。    
@@ -116,6 +131,7 @@ jQuery rankingtab プラグイン設定
  (注: baseurlに設定するurlとインデックステンプレートに新規作成したjsonファイルの出力urlが一致している必要があります。)
  * trunk: 表示するタイトルを任意の文字数で区切ります。    
 
+<a name="widget">
 ##ウィジット作成例
 下記のコードを参考に新規にウィジットテンプレート（アクセスランキング表示用）を作成します。作成後は、ウィジットセットに追加します。
 
@@ -132,12 +148,17 @@ jQuery rankingtab プラグイン設定
 			</div>
 	</div>
 
+[to the top](#top)
+<a name="css">
 ##ウィジットデザイン整形(CSS)    
 インデックステンプレート編集ファイル名スタイルシートに以下のコードを追加することでアクセスランキングウィジットのデザインが整形されます。　　　　　
 
 	/* ranking widget  StyleCatcher imports */
 	@import url(/your-utility-css-folder/widget-accessraking.css);    
 
+[to the top](#top)
+
+<a name="folder">
 ##プラグインファイル構成  
 
 	mt-plugin-AccessRankingGA/
@@ -167,15 +188,20 @@ jQuery rankingtab プラグイン設定
 		   ├── footer-load-jquery.mtml
 		   └── widget-accessranking.mtml
 
+
+[to the top](#top)
 ***
 
+<a name="schedule">
 ####\*1: スケジュールタスクの実行
 * cron等で定期で$MT_HOME/tools/run_periodic_tasksを実行する(linux or Unix)  
 * タスク・スケジューラで$MT_HOME/tools/run_periodic_tasksを実行する(windows)  
 * ログフィードを定期的に取得するようにする(	フィードリーダ等で定期的に読み込むように設定する)  
 * XML-RPCのAPI、mt.runPeriodicTasksを定期的に利用する  
 
-####　更新履歴
+***
+<a name="koushin">
+####更新履歴
  * 2012/10/16 README編集 パージョン0.5リリース
  	* GoogleAPI filter機能の変更により、アクセスできない不具合に対応。
  	* 機能アップグレード（トップページ、特定パス除外機能追加）
@@ -187,4 +213,9 @@ jQuery rankingtab プラグイン設定
   * XML::Simple,JSON削除   
  * 2011/6/19 README編集 パージョン0.4リリース
  * 2011/6/18 README編集。バージョン別内部文字エンコード対応。
- * 2011/5/25 READMEファイル修正、文字エンコード部分修正。
+ * 2011/5/25 READMEファイル修正、文字エンコード部分修正。  
+
+
+[to the top](#top)
+
+
