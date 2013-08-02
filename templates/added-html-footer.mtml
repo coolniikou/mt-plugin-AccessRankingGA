@@ -1,0 +1,10 @@
+<script type="text/javascript" src="<$mt:StaticWebPath"$>jquery/jquery.min.js"></script>
+<script type="text/javascript" src="<$mt:StaticWebPath"$>plugins/AccessRankingGA/js/jquery.rankingtab.js"></script>
+<script type="text/javascript">
+$(function(){
+    $('.widget-accessranking > .widget-content').rankingtab({
+        baseurl:   '<$mt:BlogURL$>accessranking_',
+        trunc: 40
+    });
+});
+</script>

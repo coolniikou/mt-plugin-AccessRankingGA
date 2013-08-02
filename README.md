@@ -6,7 +6,7 @@ jQueryオリジナルプラグインを使い、JSONデータをコンテンツ�
 簡単にGoogleAnalyticsデータを利用したアクセスランキングをMovable Typeに実装できrるようになります。  
 
 ####更新履歴  [下記参照](#koushin)
- * 2012/10/16 README編集 パージョン0.5リリース  
+ * 2013/08/02 Movabletype 6 対応確認 
 
 ####TODO
 ダッシュボードにレポートウィジット生成   
@@ -108,19 +108,20 @@ JSONファイル出力用に新規インデックステンプレートを作成�
 <a name="jquery">
 ##jQueryプラグインコード設置  
 MTシステム側でGoogleAnalyticsレポートからデータを取得し、JSONファイルを生成します。生成されたJSONファイルをjQueryプラグインを使って読み込み、ブログ（HTMLページ）上に表示させます。  
+
 jQueryプラグイン設置は以下の手順で行ってください。    
-1. ヘッダ（テンプレートモジュール）にjQuery読み込み用のコードを追加します。以下のコードを参考に。  
-最新のjQuery libraryを読み込むように [Google Libraries API * Developer's Guide * Google Libraries API * Google Code](https://developers.google.com/speed/libraries/devguide?hl=ja#jquery) を参照し内容を適宜変更してください。 
-(2012/8/29日現在)  
+1. ヘッダーにアクセスランキングウィジット用のCSSファイル読み込みコードを追加します。以下のコードを参考に。  
+<link rel="stylesheet" href="<$mt:StaticWebPath$>plugins/AccessRankingGA/css/rankingtab.css" type="text/css" />
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 
-2.ヘッダーもしくは、フッター（テンプレートモジュール）</body>後に以下のコードを外部スクリプトとして読み込むように設定します。  
+2.</body>後に以下のコードを外部スクリプトとして読み込むように設定します。  
 
-    <script type="text/javascript" src="http://example.com/MTHOME/mt-static/js/jquery.rankingtab.js"></script>     
+    &lt;script type=&quot;text/javascript&quot; src=&quot;&lt;$mt:StaticWebPath&quot;$&gt;jquery/jquery.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;&lt;$mt:StaticWebPath&quot;$&gt;plugins/AccessRankingGA/js/jquery.rankingtab.js&quot;&gt;&lt;/script&gt;
+
 	$(document).ready( function() {
-			$('.widget-accessranking').rankingtab({
-				baseurl: 'http://example.com/MTHOME/mt-staic/js/accessranking_',
+			$('.widget-accessranking &gt; .widget-content').rankingtab({
+				baseurl: '&lt;$BlogURL$&gt;accessranking_',
 				trunc: 60
 			});
  	});
@@ -135,18 +136,17 @@ jQuery rankingtab プラグイン設定
 ##ウィジット作成例
 下記のコードを参考に新規にウィジットテンプレート（アクセスランキング表示用）を作成します。作成後は、ウィジットセットに追加します。
 
-    <div class="widget-accessranking widget-archives widget">
-    	<h3 class="widget-header">人気アクセスランキング</h3>
-    		<div class="widget-content">
-        		<ul class="entries">
-                	<li><a href="#dayago"><em>昨日</em></a></ll>
-                	<li><a href="#week"><em>今週</em></a></li>
-                	<li><a href="#month"><em>今月</em></a></ll>
-        		</ul>
-        	<div class="tab-content accessranking-content">
-        	</div>
-			</div>
-	</div>
+    &lt;aside class=&quot;widget widget-accessranking&quot;&gt;
+    &lt;h3 class=&quot;widget-title&quot;&gt;アクセスランキング&lt;/h3&gt;
+    &lt;div class=&quot;widget-content&quot;&gt;
+        &lt;ul class=&quot;nav nav-tabs&quot;&gt;
+            &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;#day&quot;&gt;day&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#week&quot;&gt;week&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#month&quot;&gt;month&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;&lt;!--/ nav nav-tabs--&gt;
+        &lt;div class=&quot;tab-content ranking-content&quot;&gt;&lt;/div&gt;&lt;!--/ranking-content --&gt;
+    &lt;/div&gt; &lt;!-- /widge-content --&gt;
+    &lt;/aside&gt; &lt;!-- /widget-accessranking --&gt;
 
 [to the top](#top)
 <a name="css">
@@ -161,32 +161,33 @@ jQuery rankingtab プラグイン設定
 <a name="folder">
 ##プラグインファイル構成  
 
-	mt-plugin-AccessRankingGA/
-	├── README.md
-	├── mt-static
-	│   ├── css
-	│   │   └── widget-accessranking.css
-	│   └── js
-	│       └── jquery.rankingtab.js
-	├── plugins
-	│   └── AccessRankingGA
-	│       ├── config.yaml
-	│       ├── lib
-	│       │   └── AccessRankingGA
-	│       │       ├── L10N
-	│       │       │   ├── en_us.pm
-	│       │       │   └── ja.pm
-	│       │       ├── L10N.pm
-	│       │       └── Plugin.pm
-	│       ├── t
-	│       │   ├── 00-compile.t
-	│       │   └── 01-tag.t
-	│       └── tmpl
-	│           └── config.tmpl
-	├── templates
-		   ├── added-html-header.mtml
-		   ├── footer-load-jquery.mtml
-		   └── widget-accessranking.mtml
+    mt-plugin-AccessRankingGA/
+    ├── README.md
+    ├── mt-static
+    │   └── plugins
+    │       └── AccessRankingGA
+    │           ├── css
+    │           │   └── rankingtab.css
+    │           └── js
+    │               └── jquery.rankingtab.js
+    ├── plugins
+    │   └── AccessRankingGA
+    │       ├── config.yaml
+    │       ├── lib
+    │       │   └── AccessRankingGA
+    │       │       ├── L10N
+    │       │       │   ├── en_us.pm
+    │       │       │   └── ja.pm
+    │       │       ├── L10N.pm
+    │       │       └── Plugin.pm
+    │       └── tmpl
+    │           └── config.tmpl
+    └── templates
+        ├── added-html-footer.mtml
+        ├── added-html-header.mtml
+        └── widget-accessranking.mtml
+    
+    12 directories, 12 files
 
 
 [to the top](#top)
@@ -202,6 +203,10 @@ jQuery rankingtab プラグイン設定
 ***
 <a name="koushin">
 ####更新履歴
+ * 2013/08/02 MovableType 6 対応確認済
+    * README編集 複数ファイル修正
+ 	* rankingtab.js ファイル変更修正
+ 	* サンプルwidget テンプレート、css . jquery.rankingtab 修正
  * 2012/10/16 README編集 パージョン0.5リリース
  	* GoogleAPI filter機能の変更により、アクセスできない不具合に対応。
  	* 機能アップグレード（トップページ、特定パス除外機能追加）

@@ -1,0 +1,77 @@
+.nav {
+  margin-bottom: 20px;
+  margin-left: 0;
+  list-style: none;
+}
+
+.nav > li > a {
+  display: block;
+}
+
+.nav > li > a:hover {
+  text-decoration: none;
+  background-color: #eeeeee;
+}
+
+.nav-tabs {
+  *zoom: 1;
+}
+
+.nav-tabs:before,
+.nav-tabs:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.nav-tabs:after {
+  clear: both;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid #ddd;
+}
+
+.nav > li {
+  position: relative;
+  display: block;
+}
+
+.nav-tabs > li {
+  float: left;
+  margin-bottom: -1px;
+}
+
+.nav > li > a {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+}
+
+.nav-tabs > li > a {
+  margin-right: 2px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 20px;
+  border: 1px solid transparent;
+  -webkit-border-radius: 4px 4px 0 0;
+     -moz-border-radius: 4px 4px 0 0;
+          border-radius: 4px 4px 0 0;
+}
+
+.nav-tabs > li > a:hover {
+  border-color: #eeeeee #eeeeee #dddddd;
+}
+
+.nav-tabs > .active > a,
+.nav-tabs > .active > a:hover {
+  color: #555555;
+  cursor: default;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+}
+
+.ranking-content ol li {
+  list-style-type: decimal;
+}
