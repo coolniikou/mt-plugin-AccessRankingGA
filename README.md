@@ -112,10 +112,11 @@ MTシステム側でGoogleAnalyticsレポートからデータを取得し、JSO
 
 
 jQueryプラグイン設置は以下の手順で行ってください。    
-1.</body>後に以下のコードを外部スクリプトとして読み込むように設定します。  
+1.&lt;/body&gt;後に以下のコードを外部スクリプトとして読み込むように設定します。  
 
-    <script type="text/javascript" src="<$mt:StaticWebPath"$>jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="<$mt:StaticWebPath"$>plugins/AccessRankingGA/js/jquery.rankingtab.js"></script>
+
+        <script type="text/javascript" src="<$mt:StaticWebPath"$>jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="<$mt:StaticWebPath"$>plugins/AccessRankingGA/js/jquery.rankingtab.js"></script>
 
 	$(document).ready( function() {
 			$('.widget-accessranking > .widget-content').rankingtab({
