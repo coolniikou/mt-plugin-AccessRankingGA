@@ -114,9 +114,8 @@ MTシステム側でGoogleAnalyticsレポートからデータを取得し、JSO
 jQueryプラグイン設置は以下の手順で行ってください。    
 1.&lt;/body&gt;後に以下のコードを外部スクリプトとして読み込むように設定します。  
 
-
-        <script type="text/javascript" src="<$mt:StaticWebPath"$>jquery/jquery.min.js"></script>
-        <script type="text/javascript" src="<$mt:StaticWebPath"$>plugins/AccessRankingGA/js/jquery.rankingtab.js"></script>
+	<script type="text/javascript" src="<$mt:StaticWebPath"$>jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="<$mt:StaticWebPath"$>plugins/AccessRankingGA/js/jquery.rankingtab.js"></script>
 
 	$(document).ready( function() {
 			$('.widget-accessranking > .widget-content').rankingtab({
@@ -135,9 +134,9 @@ jQuery rankingtab プラグイン設定
 ##ウィジット作成例
 下記のコードを参考に新規にウィジットテンプレート（アクセスランキング表示用）を作成します。作成後は、ウィジットセットに追加します。
 
-    <aside class="widget widget-accessranking">
-    <h3 class="widget-title">アクセスランキング</h3>
-    <div class="widget-content">
+	<aside class="widget widget-accessranking">
+	<h3 class="widget-title">アクセスランキング</h3>
+	<div class="widget-content">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#day">day</a></li>
             <li><a href="#week">week</a></li>
