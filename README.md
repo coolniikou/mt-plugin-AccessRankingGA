@@ -15,8 +15,7 @@ jQueryオリジナルプラグインを使い、JSONデータをコンテンツ�
 ##AccessRankingGAインストール・設定までの流れ    
  1. **インストール**  [下記参照](#folder)   
 	* プラグインフォルダ($MT_HOME/plugin)にAccessRankingGAプラグインフォルダを追加。  
-	* jQueryスクリプトをjsフォルダ（任意）にアップロード。[mt-static/js/jquery.rankingtab.js]  
-	* cssフォルダ（任意）にアップロード。[mt-static/css/widget-accessranking.css]  
+	* mt-staticフォルダにAccessRankingGAフォルダをアップロード。[mt-static/plugins/AccessRankingGA/]  
  2. **プラグイン設定**    
 	* プラグインページにて必要情報を設定。（ログインアカウント名、パスワード、レポートID、最大表示件数）   
 	[下記参照](#setting)  
