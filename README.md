@@ -109,19 +109,17 @@ JSONファイル出力用に新規インデックステンプレートを作成�
 ##jQueryプラグインコード設置  
 MTシステム側でGoogleAnalyticsレポートからデータを取得し、JSONファイルを生成します。生成されたJSONファイルをjQueryプラグインを使って読み込み、ブログ（HTMLページ）上に表示させます。  
 
+
+
 jQueryプラグイン設置は以下の手順で行ってください。    
-1. ヘッダーにアクセスランキングウィジット用のCSSファイル読み込みコードを追加します。以下のコードを参考に。  
-<link rel="stylesheet" href="<$mt:StaticWebPath$>plugins/AccessRankingGA/css/rankingtab.css" type="text/css" />
+1.</body>後に以下のコードを外部スクリプトとして読み込むように設定します。  
 
-
-2.</body>後に以下のコードを外部スクリプトとして読み込むように設定します。  
-
-    &lt;script type=&quot;text/javascript&quot; src=&quot;&lt;$mt:StaticWebPath&quot;$&gt;jquery/jquery.min.js&quot;&gt;&lt;/script&gt;
-    &lt;script type=&quot;text/javascript&quot; src=&quot;&lt;$mt:StaticWebPath&quot;$&gt;plugins/AccessRankingGA/js/jquery.rankingtab.js&quot;&gt;&lt;/script&gt;
+    <script type="text/javascript" src="<$mt:StaticWebPath"$>jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="<$mt:StaticWebPath"$>plugins/AccessRankingGA/js/jquery.rankingtab.js"></script>
 
 	$(document).ready( function() {
-			$('.widget-accessranking &gt; .widget-content').rankingtab({
-				baseurl: '&lt;$BlogURL$&gt;accessranking_',
+			$('.widget-accessranking > .widget-content').rankingtab({
+				baseurl: '<$BlogURL$>accessranking_',
 				trunc: 60
 			});
  	});
@@ -136,25 +134,24 @@ jQuery rankingtab プラグイン設定
 ##ウィジット作成例
 下記のコードを参考に新規にウィジットテンプレート（アクセスランキング表示用）を作成します。作成後は、ウィジットセットに追加します。
 
-    &lt;aside class=&quot;widget widget-accessranking&quot;&gt;
-    &lt;h3 class=&quot;widget-title&quot;&gt;アクセスランキング&lt;/h3&gt;
-    &lt;div class=&quot;widget-content&quot;&gt;
-        &lt;ul class=&quot;nav nav-tabs&quot;&gt;
-            &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;#day&quot;&gt;day&lt;/a&gt;&lt;/li&gt;
-            &lt;li&gt;&lt;a href=&quot;#week&quot;&gt;week&lt;/a&gt;&lt;/li&gt;
-            &lt;li&gt;&lt;a href=&quot;#month&quot;&gt;month&lt;/a&gt;&lt;/li&gt;
-        &lt;/ul&gt;&lt;!--/ nav nav-tabs--&gt;
-        &lt;div class=&quot;tab-content ranking-content&quot;&gt;&lt;/div&gt;&lt;!--/ranking-content --&gt;
-    &lt;/div&gt; &lt;!-- /widge-content --&gt;
-    &lt;/aside&gt; &lt;!-- /widget-accessranking --&gt;
+    <aside class="widget widget-accessranking">
+    <h3 class="widget-title">アクセスランキング</h3>
+    <div class="widget-content">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#day">day</a></li>
+            <li><a href="#week">week</a></li>
+            <li><a href="#month">month</a></li>
+        </ul><!--/ nav nav-tabs-->
+        <div class="tab-content ranking-content"></div><!--/ranking-content -->
+    </div> <!-- /widge-content -->
+    </aside> <!-- /widget-accessranking -->
 
 [to the top](#top)
 <a name="css">
 ##ウィジットデザイン整形(CSS)    
-インデックステンプレート編集ファイル名スタイルシートに以下のコードを追加することでアクセスランキングウィジットのデザインが整形されます。　　　　　
+1. ヘッダーにアクセスランキングウィジット用のCSSファイル読み込みコードを追加します。以下のコードを参考に。  
 
-	/* ranking widget  StyleCatcher imports */
-	@import url(/your-utility-css-folder/widget-accessraking.css);    
+    <link rel="stylesheet" href="<$mt:StaticWebPath$>plugins/AccessRankingGA/css/rankingtab.css" type="text/css" />
 
 [to the top](#top)
 
